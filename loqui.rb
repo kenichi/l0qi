@@ -3,18 +3,27 @@
 require 'bundler'
 Bundler.require
 
-kato = Cinch::Bot.new do
+module Loqui
 
-  configure do |c|
-    c.channels = ['##kato_testing']
-    c.nick = 'kato'
-    c.server = 'chat.freenode.net'
+  class Karma
+    include Cinch::Plugin
+    match /(^.*\s|^)(\S+)\+\+.*$/
+    def execute m, _, nick
+      binding.pry
+    end
   end
 
-  on :message, /^.*(\S+)\+\+.*$/ do |m, nick|
-    binding.pry
+  BOT = Cinch::Bot.new do
+
+    configure do |c|
+      c.channels = ['##loqui_testing']
+      c.nick = 'loqui'
+      c.server = 'chat.freenode.net'
+      c.plugins.plugins = [Karma]
+    end
+
   end
 
 end
 
-kato.start
+Loqui::BOT.start
