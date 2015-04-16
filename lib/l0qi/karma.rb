@@ -1,4 +1,4 @@
-module Loqui
+module L0qi
   module Karma
 
     HKEY = 'karma'
@@ -9,5 +9,5 @@ module Loqui
   end
 end
 
-require 'loqui/karma/checker'
-require 'loqui/karma/giver'
+require 'l0qi/karma/checker'
+require 'l0qi/karma/giver'

@@ -1,4 +1,4 @@
-module Loqui
+module L0qi
   module Karma
     class Giver
       include Cinch::Plugin

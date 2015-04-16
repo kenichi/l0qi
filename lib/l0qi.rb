@@ -1,19 +1,19 @@
 require 'bundler'
 Bundler.require
 
-require 'loqui/karma'
+require 'l0qi/karma'
 
-module Loqui
+module L0qi
 
   R = ConnectionPool.new do
-    Redis.new driver: :celluloid, namespace: 'loqui'
+    Redis.new driver: :celluloid, namespace: 'l0qi'
   end
 
   BOT = Cinch::Bot.new do
     configure do |c|
-      c.channels = ['##loqui_testing']
-      c.nick = 'loqui'
-      c.server = 'chat.freenode.net'
+      c.channels = ['##l0qi_testing']
+      c.nick = 'l0qi'
+      c.server = '185.30.166.38'
       c.plugins.plugins = [Karma::Giver, Karma::Checker]
     end
   end

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
 $:.push File.expand_path '../../lib', __FILE__
-require 'loqui'
+require 'l0qi'
 
-Loqui::BOT.start
+L0qi::BOT.start
