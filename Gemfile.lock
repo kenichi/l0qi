@@ -1,6 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.3.8)
+    angelo (0.4.1)
+      mime-types (~> 2.4)
+      mustermann (~> 0.4)
+      reel (~> 0.5)
+      tilt (~> 2.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     celluloid-io (0.16.2)
@@ -14,21 +20,40 @@ GEM
     connection_pool (2.2.0)
     daemons (1.2.2)
     hitimes (1.2.2)
+    http (0.8.3)
+      addressable (~> 2.3)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
+    http-form_data (1.0.1)
+    http_parser.rb (0.6.0)
     method_source (0.8.2)
+    mime-types (2.4.3)
+    mustermann (0.4.0)
+      tool (~> 0.2)
     nio4r (1.1.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
     redis (3.2.1)
+    reel (0.5.0)
+      celluloid (>= 0.15.1)
+      celluloid-io (>= 0.15.0)
+      http (>= 0.6.0.pre)
+      http_parser.rb (>= 0.6.0)
+      websocket_parser (>= 0.1.6)
     slop (3.6.0)
+    tilt (2.0.1)
     timers (4.0.1)
       hitimes
+    tool (0.2.3)
+    websocket_parser (1.0.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  angelo
   celluloid-redis
   cinch
   connection_pool

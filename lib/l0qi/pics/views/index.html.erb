@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>L0qi Pics</title>
+  </head>
+  <body>
+    <div class="container">
+      <div id="pics">
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script>
+
+      var ws;
+
+      $(document).ready(function() {
+
+        ws = new WebSocket('ws://<%= HOST %>/pics');
+        ws.onmessage = function(msg) {
+          var pic = msg.data;
+          $('#pics').prepend('<div class="pic"><img src="' + pic + '"/></div>');
+        };
+
+      });
+
+    </script>
+  </body>
+</html>
+
+

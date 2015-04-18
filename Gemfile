@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'angelo'
 gem 'cinch'
 gem 'connection_pool'
 gem 'daemons'

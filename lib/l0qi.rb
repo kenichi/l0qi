@@ -2,6 +2,7 @@ require 'bundler'
 Bundler.require
 
 require 'l0qi/karma'
+require 'l0qi/pics'
 
 module L0qi
 
@@ -11,10 +12,14 @@ module L0qi
 
   BOT = Cinch::Bot.new do
     configure do |c|
-      c.channels = ['##l0qi_testing','#exesri']
+      c.channels = ['##l0qi_testing', '#exesri']
       c.nick = 'l0qi'
       c.server = '185.30.166.38'
-      c.plugins.plugins = [Karma::Giver, Karma::Checker]
+      c.plugins.plugins = [
+        Karma::Giver,
+        Karma::Checker,
+        Pics
+      ]
     end
   end
 
