@@ -9,14 +9,11 @@ module L0qi
       reload_templates! if CONFIG[:plugins][:pics][:web][:reload_templates]
 
       WEBSOCKET_PARAM = 'ws'
-      HISTORY_PARAM = 'history'
 
-      def history?
-        params.has_key? HISTORY_PARAM
-      end
-
-      def history &block
-        R.with {|r| r.lrange LIST_KEY, 0, LIST_MAXLEN}.each &block
+      FSM = Class.new do
+        include Celluloid::FSM
+        default_state :not_pinging
+        state :pinging
       end
 
       get '/' do
@@ -27,19 +24,39 @@ module L0qi
         erb :index, layout: false
       end
 
+      get '/history' do
+        content_type :json
+        R.lrange(LIST_KEY, 0, LIST_MAXLEN).map {|p| JSON.parse p}
+      end
+
       eventsource '/pics' do |es|
         sses[:pic] << es
-        history {|o| es.event :pic, o} if history?
+        async :ping_sses
       end
 
       websocket '/pics' do |ws|
         websockets[:pic] << ws
-        history {|o| ws.write o} if history?
       end
 
       task :publish_pic do |json|
         sses[:pic].event json
         websockets[:pic].each {|ws| ws.write json}
+      end
+
+      task :ping_sses do
+        @fsm ||= FSM.new self
+        if @fsm.state == :not_pinging
+          begin
+            @fsm.transition :pinging
+            every(@base.ping_time) do
+              sses[:pic].each {|es| es.event :ping}
+            end
+          rescue => e
+            error e.message
+          ensure
+            @fsm.transition :not_pinging
+          end
+        end
       end
 
     end

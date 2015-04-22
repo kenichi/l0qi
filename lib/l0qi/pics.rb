@@ -5,12 +5,14 @@ module L0qi
     CONTENT_TYPE_KEY = 'Content-Type'
     LIST_KEY = 'pics:history'
     LIST_MAXLEN = CONFIG[:plugins][:pics][:history_max]
-    SSL_OPTS = { verify_mode: OpenSSL::SSL::VERIFY_NONE } # eep!
+    REMINDER = 86400 / 4
+    SSL_OPTS = { verify_mode: OpenSSL::SSL::VERIFY_NONE } # FIXME: eep!
     VALID_MEDIA_TYPE = 'image'
 
     def initialize *a
       super
       @web = Web.run
+      @last = Time.now - REMINDER
     end
 
     match /(https{0,1}:\/\/\S+(\.gif|\.jpg|\.png))/, use_prefix: false
@@ -35,11 +37,19 @@ module L0qi
     def execute m, pic
       if valid? pic
         json = json_for m, pic
+
         R.with do |r|
           r.rpush LIST_KEY, json
           r.lpop LIST_KEY if r.llen(LIST_KEY) > LIST_MAXLEN
         end
+
         @web.async.publish_pic json
+
+        if Time.now > (@last + REMINDER)
+          @last = Time.now
+          c = R.llen LIST_KEY
+          m.reply "check out http://l0qi.nakamura.io (#{c} in history...)"
+        end
       end
     end
 
