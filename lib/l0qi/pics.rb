@@ -13,7 +13,7 @@ module L0qi
       @web = Web.run
     end
 
-    match /(http[s]:\/\/\S+(\.gif|\.jpg|\.png))/, use_prefix: false
+    match /(https{0,1}:\/\/\S+(\.gif|\.jpg|\.png))/, use_prefix: false
 
     def json_for m, pic
       { channel: m.channel,
@@ -37,7 +37,7 @@ module L0qi
         json = json_for m, pic
         R.with do |r|
           r.rpush LIST_KEY, json
-          r.lpop if r.llen(LIST_KEY) > LIST_MAXLEN
+          r.lpop LIST_KEY if r.llen(LIST_KEY) > LIST_MAXLEN
         end
         @web.async.publish_pic json
       end

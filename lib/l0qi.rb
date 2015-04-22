@@ -20,17 +20,37 @@ module L0qi
     Redis::Namespace.new :l0qi, redis: Redis.new(driver: :celluloid)
   end
 
-  BOT = Cinch::Bot.new do
-    configure do |c|
-      c.channels = CONFIG[:channels]
-      c.nick = CONFIG[:nick]
-      c.server = CONFIG[:server]
-      c.plugins.plugins = [
-        Karma::Giver,
-        Karma::Checker,
-        Pics,
-        Version
-      ]
+  class << self
+    include Cinch::Helpers
+
+    def report msg
+      Channel(CONFIG[:report]).send msg
+    end
+
+    def bot
+      unless @bot
+        @bot = Cinch::Bot.new do
+          configure do |c|
+            c.channels = (CONFIG[:channels] + [CONFIG[:report]]).uniq
+            c.nick = CONFIG[:nick]
+            c.plugins.plugins = [
+              Karma::Giver,
+              Karma::Checker,
+              Pics,
+              Version
+            ]
+            c.server = CONFIG[:server]
+          end
+        end
+
+        if CONFIG[:log_file]
+          root = File.expand_path '../..', __FILE__
+          log_file = File.open File.join(root, CONFIG[:log_file]), "a"
+          @bot.loggers[0] = Cinch::Logger::FormattedLogger.new(log_file)
+          Celluloid.logger = Logger.new log_file
+        end
+      end
+      @bot
     end
   end
 

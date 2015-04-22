@@ -1,6 +1,12 @@
 #!/usr/bin/env ruby
 
+require 'bundler'
+Bundler.require
+require 'daemons'
+
 $:.push File.expand_path '../../lib', __FILE__
 require 'l0qi'
 
-L0qi::BOT.start
+Daemons.run_proc('l0qi') do
+  L0qi.bot.start
+end

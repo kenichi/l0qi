@@ -1,14 +1,16 @@
 :channels:
-  - '##l0qi_testing'
-:nick: l0qi
-:server: chat.freenode.net
+  - '##temp_l0qi_testing'
+:log_file: l0qi.log
+:nick: temp_l0qi
 :plugins:
   :pics:
-    :web:
-      :host: localhost
-      :port: 7654
-      :addr: 127.0.0.1
-      :reload_templates: false
     :history_max: 5
+    :web:
+      :addr: 127.0.0.1
+      :port: 7654
+      :reload_templates: false
+      :ws_host: localhost
+:report: '##temp_loqi_testing'
+:server: chat.freenode.net
 
 # vim: ft=yaml

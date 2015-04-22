@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'bundler'
-Bundler.require
-require 'daemons'
-Daemons.run('bin/l0qi')
