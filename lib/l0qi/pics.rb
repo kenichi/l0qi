@@ -56,4 +56,5 @@ module L0qi
   end
 end
 
+require 'l0qi/pics/cmd'
 require 'l0qi/pics/web'

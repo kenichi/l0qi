@@ -52,6 +52,7 @@ module L0qi
               Karma::Giver,
               Karma::Checker,
               Pics,
+              Pics::Cmd,
               Version
             ]
             c.server = CONFIG[:server]
