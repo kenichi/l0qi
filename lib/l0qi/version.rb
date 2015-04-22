@@ -1,6 +1,6 @@
 module L0qi
 
-  VERSION = '0.6.8'
+  VERSION = '0.7.0'
   START = Time.now
 
   class Version
@@ -11,7 +11,7 @@ module L0qi
     def execute m
       m.reply "L0qi (#{VERSION})"
       m.reply "nick: #{CONFIG[:nick]} in channels: #{CONFIG[:channels].join(',')}"
-      m.reply "uptime: #{Time.now - START}s"
+      m.reply "uptime: #{(Time.now - START).round}s"
     end
 
   end
