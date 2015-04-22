@@ -1,0 +1,14 @@
+:channels:
+  - '##l0qi_testing'
+:nick: l0qi
+:server: chat.freenode.net
+:plugins:
+  :pics:
+    :web:
+      :host: localhost
+      :port: 7654
+      :addr: 127.0.0.1
+      :reload_templates: false
+    :history_max: 5
+
+# vim: ft=yaml

@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'angelo'
+gem 'awesome_print'
 gem 'cinch'
 gem 'connection_pool'
 gem 'daemons'
+gem 'http'
 gem 'redis'
+gem 'redis-namespace', require: 'redis/namespace'
 gem 'celluloid-redis'
 gem 'pry'
