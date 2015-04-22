@@ -1,6 +1,8 @@
 module L0qi
-  VERSION = '0.6.7'
+
+  VERSION = '0.6.8'
   START = Time.now
+
   class Version
     include Cinch::Plugin
 
