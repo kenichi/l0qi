@@ -13,7 +13,7 @@
       :addr: 127.0.0.1
       :port: 7654
       :reload_templates: false
-      :ws_host: localhost
+      :ws_host: localhost:7654
 :report: '##temp_loqi_testing'
 :server: chat.freenode.net
 
