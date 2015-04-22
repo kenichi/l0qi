@@ -14,6 +14,7 @@ module L0qi
 
   require 'l0qi/karma'
   require 'l0qi/pics'
+  require 'l0qi/version'
 
   R = ConnectionPool.new do
     Redis::Namespace.new :l0qi, redis: Redis.new(driver: :celluloid)
@@ -27,7 +28,8 @@ module L0qi
       c.plugins.plugins = [
         Karma::Giver,
         Karma::Checker,
-        Pics
+        Pics,
+        Version
       ]
     end
   end
