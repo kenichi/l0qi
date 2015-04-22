@@ -12,12 +12,12 @@ $ bin/l0qi (start|stop|run)
 
 ### config.yml
 
-`:channels` - array of channel names
-`:log_file` - file name
-`:nick`     - nickname
-`:plugins`  - plugin specific
-`:report`   - channel for `L0qi.report 'hi'`
-`:server`   - irc server
+* `:channels` - array of channel names
+* `:log_file` - file name
+* `:nick`     - nickname
+* `:plugins`  - plugin specific
+* `:report`   - channel for `L0qi.report 'hi'`
+* `:server`   - irc server
 
 ### plugins
 
@@ -29,7 +29,7 @@ with existing karma to /key_*/, so that rejoin nicks like 'kenichi_',
 
 ##### pics
 
-`:addr`             - address to bind angelo service to
-`:port`             - port to run angelo service on
-`:reload_templates` - call angelo's `reload_templates!` or not
-`:ws_host`          - host to put in `ws://[host]/pics` websocket url
+* `:addr`             - address to bind angelo service to
+* `:port`             - port to run angelo service on
+* `:reload_templates` - call angelo's `reload_templates!` or not
+* `:ws_host`          - host to put in `ws://[host]/pics` websocket url
