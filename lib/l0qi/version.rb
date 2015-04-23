@@ -10,7 +10,7 @@ module L0qi
 
     def execute m
       m.reply "L0qi (#{VERSION})"
-      m.reply "nick: #{CONFIG[:nick]} in channels: #{CONFIG[:channels].join(',')}"
+      m.reply "nick: #{CONFIG[:nick]}"
       m.reply "uptime: #{(Time.now - START).round}s"
       m.reply "pic history: #{R.llen Pics::LIST_KEY}"
     end

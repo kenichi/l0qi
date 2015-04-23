@@ -19,8 +19,6 @@ module L0qi
       get '/' do
         @use_ws = params.has_key? WEBSOCKET_PARAM
         @ws_host = CONFIG[:plugins][:pics][:web][:ws_host]
-        @nick = CONFIG[:nick]
-        @channels = CONFIG[:channels].join(', ')
         erb :index, layout: false
       end
 
