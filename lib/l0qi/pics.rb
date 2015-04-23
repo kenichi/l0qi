@@ -18,7 +18,7 @@ module L0qi
     match /(https{0,1}:\/\/\S+(\.gif|\.jpg|\.png))/, use_prefix: false
 
     def json_for m, pic
-      { channel: m.channel,
+      { # channel: m.channel,
         nick: m.user.nick,
         time: Time.now.to_i,
         url: pic
