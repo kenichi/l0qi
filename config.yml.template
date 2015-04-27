@@ -7,7 +7,7 @@
     :aliases:        # aliases so karma doesn't build on bad keys
       temp_nick:     #   key to map aliases to (value is array of aliases)
         - temp_nick_ #   /nick_+/ case handled by default
-  :pics:
+  :urls:
     :history_max: 5
     :web:
       :addr: 127.0.0.1

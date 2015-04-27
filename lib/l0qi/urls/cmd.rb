@@ -1,13 +1,13 @@
 require 'date'
 
 module L0qi
-  class Pics
+  class Urls
     class Cmd
       include Cinch::Plugin
 
       LIST_REPLY = "(%d) - %s - %s - %s"
 
-      match /^!pics (.*)$/, use_prefix: false
+      match /^!urls (.*)$/, use_prefix: false
 
       def clear!
         R.del LIST_KEY
@@ -48,7 +48,7 @@ module L0qi
         cmds = cmd.split /\s+/
         case cmds[0]
         when 'clear'; clear!
-        when 'count'; m.reply "#{R.llen LIST_KEY} pics in history"
+        when 'count'; m.reply "#{R.llen LIST_KEY} urls in history"
         when 'list'; list m
         when 'pop'; pop m, cmds[1]
         end

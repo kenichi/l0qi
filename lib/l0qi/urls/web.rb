@@ -1,44 +1,52 @@
 module L0qi
-  class Pics
+  class Urls
 
     class Web < Angelo::Base
 
       log_level ::Logger::DEBUG
-      port CONFIG[:plugins][:pics][:web][:port]
-      addr CONFIG[:plugins][:pics][:web][:addr]
-      reload_templates! if CONFIG[:plugins][:pics][:web][:reload_templates]
+      port CONFIG[:plugins][:urls][:web][:port]
+      addr CONFIG[:plugins][:urls][:web][:addr]
+      reload_templates! if CONFIG[:plugins][:urls][:web][:reload_templates]
 
       WEBSOCKET_PARAM = 'ws'
+      HISTORY_FMT = '[%s]'
 
-      FSM = Class.new do
-        include Celluloid::FSM
-        default_state :not_pinging
-        state :pinging
-      end
+      # ---
 
       get '/' do
         @use_ws = params.has_key? WEBSOCKET_PARAM
-        @ws_host = CONFIG[:plugins][:pics][:web][:ws_host]
+        @ws_host = CONFIG[:plugins][:urls][:web][:ws_host]
         erb :index, layout: false
       end
 
       get '/history' do
         content_type :json
-        R.lrange(LIST_KEY, 0, LIST_MAXLEN).map {|p| JSON.parse p}
+        urls = R.lrange LIST_KEY, 0, (LIST_MAXLEN - 1)
+        HISTORY_FMT % urls.join(',')
       end
 
-      eventsource '/pics' do |es|
-        sses[:pic] << es
+      eventsource '/urls' do |es|
+        sses[:url] << es
         async :ping_sses
       end
 
-      websocket '/pics' do |ws|
-        websockets[:pic] << ws
+      websocket '/urls' do |ws|
+        websockets[:url] << ws
       end
 
-      task :publish_pic do |json|
-        sses[:pic].event json
-        websockets[:pic].each {|ws| ws.write json}
+      # ---
+
+      class FSM
+        include Celluloid::FSM
+        default_state :not_pinging
+        state :pinging
+      end
+
+      # ---
+
+      task :publish_url do |type, json|
+        sses[:url].event type, json
+        websockets[:url].each {|ws| ws.write json}
       end
 
       task :ping_sses do
@@ -47,7 +55,7 @@ module L0qi
           begin
             @fsm.transition :pinging
             every(@base.ping_time) do
-              sses[:pic].each {|es| es.event :ping}
+              sses[:url].each {|es| es.event :ping}
             end
           rescue => e
             error e.message

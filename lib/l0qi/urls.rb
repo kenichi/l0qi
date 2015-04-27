@@ -1,13 +1,16 @@
 module L0qi
-  class Pics
+  class Urls
     include Cinch::Plugin
 
     CONTENT_TYPE_KEY = 'Content-Type'
-    LIST_KEY = 'pics:history'
-    LIST_MAXLEN = CONFIG[:plugins][:pics][:history_max]
+    LIST_KEY = 'urls:history'
+    LIST_MAXLEN = CONFIG[:plugins][:urls][:history_max]
     REMINDER = 86400 / 4
     SSL_OPTS = { verify_mode: OpenSSL::SSL::VERIFY_NONE } # FIXME: eep!
-    VALID_MEDIA_TYPE = 'image'
+
+    IMAGE_TYPE = 'image'
+    LINK_TYPES = %w[ application text ]
+    VALID_TYPES = %w[ audio video ] + LINK_TYPES + [IMAGE_TYPE]
 
     def initialize *a
       super
@@ -15,35 +18,40 @@ module L0qi
       @last = Time.now - REMINDER
     end
 
-    match /(https{0,1}:\/\/\S+(\.gif|\.jpg|\.png))/, use_prefix: false
+    match /(https{0,1}:\/\/\S+)/, use_prefix: false
 
-    def json_for m, pic
-      { # channel: m.channel,
+    def json_for m, url, type
+      { channel: m.channel,
         nick: m.user.nick,
         time: Time.now.to_i,
-        url: pic
+        type: type,
+        url: url
       }.to_json
     end
 
-    def valid? pic
-      r = HTTP.head pic, follow: true, ssl: SSL_OPTS
-      if r.code == 200 && mt = MIME::Types[r[CONTENT_TYPE_KEY]].first
-        mt.media_type == VALID_MEDIA_TYPE
-      else
-        false
+    def type_of url
+      r = HTTP.head url, follow: true, ssl: SSL_OPTS
+      if r.code == 200
+        if mt = MIME::Types[r[CONTENT_TYPE_KEY]].first
+          if VALID_TYPES.include? mt.media_type
+            return :link if LINK_TYPES.include?(mt.media_type)
+            return mt.media_type.to_sym
+          end
+        end
       end
+      nil
     end
 
-    def execute m, pic
-      if valid? pic
-        json = json_for m, pic
+    def execute m, url
+      if t = type_of(url)
+        json = json_for m, url, t
 
         R.with do |r|
           r.rpush LIST_KEY, json
           r.lpop LIST_KEY if r.llen(LIST_KEY) > LIST_MAXLEN
         end
 
-        @web.async.publish_pic json
+        @web.async.publish_url t, json
 
         if Time.now > (@last + REMINDER)
           @last = Time.now
@@ -56,5 +64,5 @@ module L0qi
   end
 end
 
-require 'l0qi/pics/cmd'
-require 'l0qi/pics/web'
+require 'l0qi/urls/cmd'
+require 'l0qi/urls/web'

@@ -14,7 +14,7 @@ module L0qi
   end
 
   require 'l0qi/karma'
-  require 'l0qi/pics'
+  require 'l0qi/urls'
   require 'l0qi/version'
 
   R = Module.new do
@@ -51,8 +51,8 @@ module L0qi
             c.plugins.plugins = [
               Karma::Giver,
               Karma::Checker,
-              Pics,
-              Pics::Cmd,
+              Urls,
+              Urls::Cmd,
               Version
             ]
             c.server = CONFIG[:server]
