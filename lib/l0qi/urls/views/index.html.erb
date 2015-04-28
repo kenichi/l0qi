@@ -10,11 +10,14 @@
       header { font-size: 12pt; }
       .cf:before, .cf:after { content: " "; display: table; } .cf:after { clear: both; }
       .controls { margin: 20px auto; }
+        .controls form { display: inline; }
         #status { padding: 10px; }
         .ok {  border: 1px solid #0f0; color: #0d0; background-color: #aca; }
         .meh { border: none; color: #999; background-color: #aaa; }
         .bad { border: 1px solid #f00; color: #d00; background-color: #caa; }
       #urls div { margin: 15px; }
+      #urls img { cursor: pointer; }
+      img.liked { border: 1px solid #0f0; }
     </style>
   </head>
   <body>
@@ -30,7 +33,7 @@
           <input type="checkbox" id="connect" name="connect"/>
         </span>
         <span>
-          <form name="kind" style="display:inline;">
+          <form name="kind">
             <label for="kind">es:</label>
             <input type="radio" name="kind" value="es"/>
             <label for="kind">ws:</label>
@@ -43,6 +46,6 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="/l0qi.js"></script>
-    <script>L0qi.init('<%= @ws_host %>', <%= @use_ws %>);</script>
+    <script>L0qi.init(<%= @use_ws %>);</script>
   </body>
 </html>

@@ -1,11 +1,13 @@
+require 'tilt/erb'
+
 module L0qi
   class Urls
 
     class Web < Angelo::Base
 
+      addr CONFIG[:plugins][:urls][:web][:addr]
       log_level ::Logger::DEBUG
       port CONFIG[:plugins][:urls][:web][:port]
-      addr CONFIG[:plugins][:urls][:web][:addr]
       reload_templates! if CONFIG[:plugins][:urls][:web][:reload_templates]
 
       WEBSOCKET_PARAM = 'ws'
@@ -15,7 +17,6 @@ module L0qi
 
       get '/' do
         @use_ws = params.has_key? WEBSOCKET_PARAM
-        @ws_host = CONFIG[:plugins][:urls][:web][:ws_host]
         erb :index, layout: false
       end
 

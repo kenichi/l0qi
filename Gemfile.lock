@@ -1,12 +1,30 @@
+GIT
+  remote: git://github.com/celluloid/reel.git
+  revision: 2bf6b37a89abe4f08f116677323e5fab7512fb4e
+  branch: 0.6.0-milestone
+  specs:
+    reel (0.6.0.pre2)
+      celluloid (>= 0.15.1)
+      celluloid-io (>= 0.15.0)
+      http (>= 0.6.0.pre)
+      http_parser.rb (>= 0.6.0)
+      websocket-driver (>= 0.5.1)
+
+GIT
+  remote: git://github.com/kenichi/angelo.git
+  revision: 7227d12ab7b3250cda6e43ec91a01d0701a9b5d7
+  branch: reel_0.6
+  specs:
+    angelo (0.5.0pre)
+      mime-types (~> 2.4)
+      mustermann (~> 0.4)
+      reel (= 0.6.0.pre2)
+      tilt (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.3.8)
-    angelo (0.4.1)
-      mime-types (~> 2.4)
-      mustermann (~> 0.4)
-      reel (~> 0.5)
-      tilt (~> 2.0)
     awesome_print (1.6.1)
     celluloid (0.16.0)
       timers (~> 4.0.0)
@@ -21,14 +39,14 @@ GEM
     connection_pool (2.2.0)
     daemons (1.2.2)
     hitimes (1.2.2)
-    http (0.8.3)
+    http (0.8.4)
       addressable (~> 2.3)
       http-form_data (~> 1.0.1)
       http_parser.rb (~> 0.6.0)
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
     method_source (0.8.2)
-    mime-types (2.4.3)
+    mime-types (2.5)
     mustermann (0.4.0)
       tool (~> 0.2)
     nio4r (1.1.0)
@@ -39,24 +57,20 @@ GEM
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
-    reel (0.5.0)
-      celluloid (>= 0.15.1)
-      celluloid-io (>= 0.15.0)
-      http (>= 0.6.0.pre)
-      http_parser.rb (>= 0.6.0)
-      websocket_parser (>= 0.1.6)
     slop (3.6.0)
     tilt (2.0.1)
     timers (4.0.1)
       hitimes
     tool (0.2.3)
-    websocket_parser (1.0.0)
+    websocket-driver (0.5.4)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  angelo
+  angelo!
   awesome_print
   celluloid-redis
   cinch
@@ -66,3 +80,4 @@ DEPENDENCIES
   pry
   redis
   redis-namespace
+  reel!
