@@ -11,6 +11,8 @@
       .cf:before, .cf:after { content: " "; display: table; } .cf:after { clear: both; }
       #status { padding: 10px; }
       .controls { margin: 20px auto; }
+        .controls span { margin-right: 15px; }
+          .controls span label { cursor: pointer; }
         .controls form { display: inline; }
         .ok {  color: #0d0; }
         .meh { color: #999; }
@@ -38,8 +40,11 @@
             <input type="radio" name="kind" value="ws"/>
           </form>
         </span>
+        <span>
+          <label for="hideImages">hide images on blur:</label>
+          <input type="checkbox" id="hideImages" name="hideImages" checked="checked"/>
+        </span>
       </div>
-      <hr/>
       <div id="urls" class="cf">
       </div>
     </div>

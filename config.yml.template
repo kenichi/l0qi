@@ -13,6 +13,7 @@
       :addr: 127.0.0.1
       :port: 7654
       :reload_templates: false
+      :reload_token: secret
 :report: '##temp_loqi_testing'
 :server: chat.freenode.net
 

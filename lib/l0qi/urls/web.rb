@@ -10,8 +10,10 @@ module L0qi
       port CONFIG[:plugins][:urls][:web][:port]
       reload_templates! if CONFIG[:plugins][:urls][:web][:reload_templates]
 
-      WEBSOCKET_PARAM = 'ws'
       HISTORY_FMT = '[%s]'
+      WEBSOCKET_PARAM = 'ws'
+      RELOAD_EVENT_TYPE = 'reload'
+      RELOAD_TOKEN = CONFIG[:plugins][:urls][:web][:reload_token]
 
       # ---
 
@@ -24,6 +26,22 @@ module L0qi
         content_type :json
         urls = R.lrange LIST_KEY, 0, (LIST_MAXLEN - 1)
         HISTORY_FMT % urls.join(',')
+      end
+
+      post '/reload' do
+        if RELOAD_TOKEN == params[:token]
+          content_type :json
+
+          d = { in: params[:in].to_i, message: params[:message] }
+          sses[:url].each {|es| es.event :reload, d}
+
+          d.merge! type: RELOAD_EVENT_TYPE
+          websockets[:url].each {|ws| ws.write d.to_json}
+
+          {reload: :queued}
+        else
+          halt 404
+        end
       end
 
       eventsource '/urls' do |es|
