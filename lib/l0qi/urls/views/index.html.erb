@@ -9,12 +9,12 @@
       body { font-size: 10pt; font-family: helvetica, sans-serif; }
       header { font-size: 12pt; }
       .cf:before, .cf:after { content: " "; display: table; } .cf:after { clear: both; }
+      #status { padding: 10px; }
       .controls { margin: 20px auto; }
         .controls form { display: inline; }
-        #status { padding: 10px; }
-        .ok {  border: 1px solid #0f0; color: #0d0; background-color: #aca; }
-        .meh { border: none; color: #999; background-color: #aaa; }
-        .bad { border: 1px solid #f00; color: #d00; background-color: #caa; }
+        .ok {  color: #0d0; }
+        .meh { color: #999; }
+        .bad { color: #d00; }
       #urls div { margin: 15px; }
       #urls img { cursor: pointer; }
       img.liked { border: 1px solid #0f0; }
@@ -23,11 +23,9 @@
   <body>
     <div class="container">
       <header class="cf">
-        L0qi
+        L0qi <span id="status"></span>
       </header>
       <div class="controls cf">
-        <span id="status">
-        </span>
         <span>
           <label for="connect">connect:</label>
           <input type="checkbox" id="connect" name="connect"/>
@@ -41,6 +39,7 @@
           </form>
         </span>
       </div>
+      <hr/>
       <div id="urls" class="cf">
       </div>
     </div>

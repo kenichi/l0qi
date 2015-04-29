@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: git://github.com/kenichi/angelo.git
-  revision: 7227d12ab7b3250cda6e43ec91a01d0701a9b5d7
+  revision: 56a1b9221b63ec9a7e9b6c381a9ed049b4b90256
   branch: reel_0.6
   specs:
     angelo (0.5.0pre)
