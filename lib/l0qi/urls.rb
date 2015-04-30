@@ -14,7 +14,7 @@ module L0qi
 
     def initialize *a
       super
-      @web = Web.run
+      @web = Web.run if Web.start?
       @last = Time.now - REMINDER
     end
 

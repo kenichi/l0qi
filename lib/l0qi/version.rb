@@ -1,6 +1,6 @@
 module L0qi
 
-  VERSION = '0.7.0'
+  VERSION = '0.8.0'
   START = Time.now
 
   class Version

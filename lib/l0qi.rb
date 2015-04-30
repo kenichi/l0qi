@@ -3,6 +3,8 @@ Bundler.require
 require 'forwardable'
 require 'yaml'
 
+class NilClass; alias_method :empty?, :nil?; end
+
 module L0qi
 
   CONFIG_FILE = File.expand_path '../../config.yml', __FILE__

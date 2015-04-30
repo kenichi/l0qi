@@ -17,6 +17,34 @@ module L0qi
 
       # ---
 
+      class << self
+
+        def start!
+          @start = true
+        end
+
+        def dont_start!
+          @start = false
+        end
+
+        def start?
+          @start.nil? || @start
+        end
+
+        def on_ws_messages key = nil
+          @on_ws_messages ||= {}
+          case key
+          when NilClass
+            @on_ws_messages
+          when Symbol
+            @on_ws_messages[key] ||= []
+          end
+        end
+
+      end
+
+      # ---
+
       get '/' do
         @use_ws = params.has_key? WEBSOCKET_PARAM
         erb :index, layout: false
@@ -51,6 +79,14 @@ module L0qi
 
       websocket '/urls' do |ws|
         websockets[:url] << ws
+        ws.on_message do |msg|
+          begin
+            msg = JSON.parse msg
+            Web.on_ws_messages(:url).each {|on| on[ws, msg]}
+          rescue => e
+            warn e.message
+          end
+        end
       end
 
       # ---

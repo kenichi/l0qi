@@ -5,6 +5,11 @@ module L0qi
 
       DEFAULT_ALIAS = ->(nick){ /#{nick}_+/ }
 
+      def initialize *a
+        super
+        L0qi::Urls::Web.on_ws_messages(:url) << method(:on_ws_message)
+      end
+
       match /(^.*\s|^)(\S+)(\+\+|\-\-).*$/, use_prefix: false
 
       def same_nick m, nick, mod
@@ -39,6 +44,19 @@ module L0qi
           same_nick m, key, mod
         else
           give m, key, mod
+        end
+      end
+
+      private
+
+      def on_ws_message ws, msg
+        if msg['type'] == 'karma'
+          n, c = msg['nick'], msg['channel']
+          unless n.empty? or c.empty?
+            n = check_aliases n
+            k = R.hincrby HKEY, n, 1
+            L0qi.Channel(c).send((REPLY % [n, k]) + ' via websocket!')
+          end
         end
       end
 
