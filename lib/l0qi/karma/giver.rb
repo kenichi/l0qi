@@ -10,7 +10,7 @@ module L0qi
         L0qi::Urls::Web.on_ws_messages(:url) << method(:on_ws_message)
       end
 
-      match /(^.*\s|^)(\S+)(\+\+|\-\-).*$/, use_prefix: false
+      match /(\+\+|\-\-)/, use_prefix: false
 
       def same_nick m, nick, mod
         case mod
@@ -38,13 +38,17 @@ module L0qi
         m.reply REPLY % [key, k]
       end
 
-      def execute m, _, key, mod
+      def each m, key, mod
         key = check_aliases key
         if m.user.nick == key
           same_nick m, key, mod
         else
           give m, key, mod
         end
+      end
+
+      def execute m
+        Hash[m.message.scan KARMA_REGEX].each {|k,mod| each m, k, mod}
       end
 
       private
