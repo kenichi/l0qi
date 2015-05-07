@@ -2,11 +2,8 @@
 
 require 'bundler'
 Bundler.require
-require 'daemons'
 
 $:.push File.expand_path '../../lib', __FILE__
 require 'l0qi'
 
-Daemons.run_proc('l0qi') do
-  L0qi.bot.start
-end
+L0qi.bot.start

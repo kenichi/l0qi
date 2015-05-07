@@ -37,9 +37,8 @@ GEM
     cinch (2.2.5)
     coderay (1.1.0)
     connection_pool (2.2.0)
-    daemons (1.2.2)
     hitimes (1.2.2)
-    http (0.8.4)
+    http (0.8.5)
       addressable (~> 2.3)
       http-form_data (~> 1.0.1)
       http_parser.rb (~> 0.6.0)
@@ -75,7 +74,6 @@ DEPENDENCIES
   celluloid-redis
   cinch
   connection_pool
-  daemons
   http
   pry
   redis
