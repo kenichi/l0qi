@@ -15,6 +15,7 @@ module L0qi
     exit 1
   end
 
+  require 'l0qi/events'
   require 'l0qi/karma'
   require 'l0qi/urls'
   require 'l0qi/version'
