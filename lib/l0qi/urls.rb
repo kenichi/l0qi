@@ -5,7 +5,7 @@ module L0qi
     CONTENT_TYPE_KEY = 'Content-Type'
     LIST_KEY = 'urls:history'
     LIST_MAXLEN = CONFIG[:plugins][:urls][:history_max]
-    REMINDER = 86400 / 4
+    # REMINDER = 86400 / 4
     SSL_OPTS = { verify_mode: OpenSSL::SSL::VERIFY_NONE } # FIXME: eep!
 
     IMAGE_TYPE = 'image'
@@ -14,8 +14,7 @@ module L0qi
 
     def initialize *a
       super
-      @web = Web.run if Web.start?
-      @last = Time.now - REMINDER
+      # @last = Time.now - REMINDER
     end
 
     match /(https{0,1}:\/\/\S+)/, use_prefix: false
@@ -53,11 +52,11 @@ module L0qi
 
         @web.async.publish_url t, json
 
-        if Time.now > (@last + REMINDER)
-          @last = Time.now
-          c = R.llen LIST_KEY
-          m.reply "check out http://l0qi.nakamura.io (#{c} in history...)"
-        end
+        # if Time.now > (@last + REMINDER)
+        #   @last = Time.now
+        #   c = R.llen LIST_KEY
+        #   m.reply "check out http://l0qi.nakamura.io (#{c} in history...)"
+        # end
       end
     end
 

@@ -19,6 +19,7 @@ module L0qi
   require 'l0qi/karma'
   require 'l0qi/urls'
   require 'l0qi/version'
+  require 'l0qi/web'
 
   R = Module.new do
     class << self
