@@ -9,12 +9,12 @@
         - temp_nick_ #   /nick_+/ case handled by default
   :urls:
     :history_max: 5
-    :web:
-      :addr: 127.0.0.1
-      :port: 7654
-      :reload_templates: false
-      :reload_token: secret
 :report: '##temp_loqi_testing'
 :server: chat.freenode.net
+:web:
+  :addr: 127.0.0.1
+  :port: 7654
+  :reload_templates: false
+  :reload_token: secret
 
 # vim: ft=yaml

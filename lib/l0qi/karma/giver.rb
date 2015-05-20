@@ -7,7 +7,7 @@ module L0qi
 
       def initialize *a
         super
-        L0qi::Urls::Web.on_ws_messages(:url) << method(:on_ws_message)
+        L0qi::Web.on_ws_messages(:url) << method(:on_ws_message)
       end
 
       match /(\+\+|\-\-)/, use_prefix: false

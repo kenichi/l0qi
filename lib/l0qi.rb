@@ -46,6 +46,9 @@ module L0qi
       Channel(CONFIG[:report]).send msg
     end
 
+    def web= w; @web = w; end
+    def web; @web; end
+
     def bot
       unless @bot
         @bot = Cinch::Bot.new do

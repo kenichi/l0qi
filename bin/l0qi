@@ -6,4 +6,5 @@ Bundler.require
 $:.push File.expand_path '../../lib', __FILE__
 require 'l0qi'
 
+L0qi.web = L0qi::Web.run unless ARGV.include? '--no-web'
 L0qi.bot.start
