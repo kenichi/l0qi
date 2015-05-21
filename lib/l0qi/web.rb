@@ -36,9 +36,9 @@ module L0qi
       erb :index, layout: false
     end
 
-    get '/history' do
+    get '/urls/history' do
       content_type :json
-      urls = R.lrange LIST_KEY, 0, (LIST_MAXLEN - 1)
+      urls = R.lrange Urls::LIST_KEY, 0, (Urls::LIST_MAXLEN - 1)
       HISTORY_FMT % (urls ? urls.join(',') : '')
     end
 
