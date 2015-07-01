@@ -15,6 +15,7 @@ module L0qi
     exit 1
   end
 
+  require 'l0qi/done'
   require 'l0qi/events'
   require 'l0qi/karma'
   require 'l0qi/urls'
@@ -56,6 +57,7 @@ module L0qi
             c.channels = (CONFIG[:channels] + [CONFIG[:report]]).uniq
             c.nick = CONFIG[:nick]
             c.plugins.plugins = [
+              Done,
               Karma::Giver,
               Karma::Checker,
               Urls,
