@@ -32,7 +32,7 @@ module L0qi
       l = USER_MESSAGES % user.nick
       len = R.llen l
       if len > 0
-        while msg = R.lpop l
+        while msg = R.lpop(l)
           msg = JSON.parse msg
           msg = [
             "#{user}: #{msg['from']} left you a message at #{msg['at']} -",
