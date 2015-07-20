@@ -19,6 +19,7 @@ module L0qi
   require 'l0qi/events'
   require 'l0qi/karma'
   require 'l0qi/urls'
+  require 'l0qi/tell'
   require 'l0qi/version'
   require 'l0qi/web'
 
@@ -60,8 +61,10 @@ module L0qi
               Done,
               Karma::Giver,
               Karma::Checker,
+              Share,
               Urls,
               Urls::Cmd,
+              Tell,
               Version
             ]
             c.server = CONFIG[:server]

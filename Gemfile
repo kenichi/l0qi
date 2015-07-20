@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'reel', github: 'celluloid/reel', branch: '0.6.0-milestone'
+gem 'reel', github: 'celluloid/reel', branch: '0.6.0-milestone', submodules: true
 gem 'angelo', github: 'kenichi/angelo', branch: 'reel_0.6'
 gem 'awesome_print'
 gem 'cinch'

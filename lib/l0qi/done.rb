@@ -1,4 +1,5 @@
 module L0qi
+
   class Done
     include Cinch::Plugin
 
@@ -14,4 +15,20 @@ module L0qi
     end
 
   end
+
+  class Share
+    include Cinch::Plugin
+
+    REPLIES = [ 'no.',
+                'nope.',
+                'nuh uh.',
+                'stop.' ]
+
+    match /share.*/
+
+    def execute m
+      m.reply REPLIES[rand(REPLIES.length)]
+    end
+  end
+
 end

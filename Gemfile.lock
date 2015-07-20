@@ -1,24 +1,31 @@
 GIT
   remote: git://github.com/celluloid/reel.git
-  revision: 2bf6b37a89abe4f08f116677323e5fab7512fb4e
+  revision: 17ef7c0e157fa877104f5ea6f56ea6e7703183a6
   branch: 0.6.0-milestone
+  submodules: true
   specs:
-    reel (0.6.0.pre2)
-      celluloid (>= 0.15.1)
-      celluloid-io (>= 0.15.0)
+    reel (0.6.0.pre5)
+      bundler
+      celluloid (>= 0.17.0)
+      celluloid-io (>= 0.16.5.pre0)
+      dotenv
       http (>= 0.6.0.pre)
       http_parser.rb (>= 0.6.0)
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (~> 4.0.0)
       websocket-driver (>= 0.5.1)
+      websocket_parser (>= 0.1.6)
 
 GIT
   remote: git://github.com/kenichi/angelo.git
-  revision: 56a1b9221b63ec9a7e9b6c381a9ed049b4b90256
+  revision: 1f30208638d57001f96a9aa05cb05d692ab14473
   branch: reel_0.6
   specs:
     angelo (0.5.0pre)
       mime-types (~> 2.4)
       mustermann (~> 0.4)
-      reel (= 0.6.0.pre2)
+      reel (= 0.6.0.pre5)
       tilt (~> 2.0)
 
 GEM
@@ -26,29 +33,80 @@ GEM
   specs:
     addressable (2.3.8)
     awesome_print (1.6.1)
-    celluloid (0.16.0)
+    celluloid (0.17.0)
+      bundler
+      celluloid-essentials
+      celluloid-extras
+      celluloid-fsm
+      celluloid-pool
+      celluloid-supervision
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
       timers (~> 4.0.0)
-    celluloid-io (0.16.2)
-      celluloid (>= 0.16.0)
+    celluloid-essentials (0.20.1.1)
+      bundler
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (~> 4.0.0)
+    celluloid-extras (0.20.0)
+      bundler
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (~> 4.0.0)
+    celluloid-fsm (0.20.0)
+      bundler
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (~> 4.0.0)
+    celluloid-io (0.16.5.pre0)
+      bundler
+      celluloid (>= 0.17.0.pre12)
+      dotenv
+      nenv
       nio4r (>= 1.1.0)
+      rspec-logsplit (>= 0.1.2)
+      timers (~> 4.0.0)
+    celluloid-pool (0.20.0)
+      bundler
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (~> 4.0.0)
     celluloid-redis (0.0.2)
       celluloid-io (>= 0.13.0.pre)
       redis
-    cinch (2.2.5)
+    celluloid-supervision (0.20.0)
+      bundler
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (~> 4.0.0)
+    cinch (2.2.6)
     coderay (1.1.0)
     connection_pool (2.2.0)
+    domain_name (0.5.24)
+      unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.0.2)
     hitimes (1.2.2)
-    http (0.8.5)
+    http (0.8.12)
       addressable (~> 2.3)
+      http-cookie (~> 1.0)
       http-form_data (~> 1.0.1)
       http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
     method_source (0.8.2)
-    mime-types (2.5)
+    mime-types (2.6.1)
     mustermann (0.4.0)
       tool (~> 0.2)
-    nio4r (1.1.0)
+    nenv (0.2.0)
+    nio4r (1.1.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -56,14 +114,19 @@ GEM
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
+    rspec-logsplit (0.1.3)
     slop (3.6.0)
     tilt (2.0.1)
     timers (4.0.1)
       hitimes
     tool (0.2.3)
-    websocket-driver (0.5.4)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.1)
+    websocket-driver (0.6.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    websocket_parser (1.0.0)
 
 PLATFORMS
   ruby
