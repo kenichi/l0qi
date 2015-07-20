@@ -10,6 +10,7 @@ module L0qi
     match /tell.*/
 
     listen_to :online, method: :on_online
+    listen_to :connect, method: :on_connect
 
     def execute m
       if md = TELL_REGEX.match(m.message)
@@ -23,23 +24,33 @@ module L0qi
             from: m.user.nick,
             message: msg
           }.to_json
+          User(user).monitor unless User(user).monitored?
           m.reply SAVED
         end
       end
     end
 
-    def on_online m, user
-      l = USER_MESSAGES % user.nick
-      len = R.llen l
-      if len > 0
-        while msg = R.lpop(l)
-          msg = JSON.parse msg
-          msg = [
-            "#{user}: #{msg['from']} left you a message at #{msg['at']} -",
-            "#{user}: #{msg['message']}"
-          ]
-          msg.each {|_| Channel(msg['channel']).send _}
+    def check_messages user
+      key = USER_MESSAGES % user
+      R.llen(key) > 0 ? key : nil
+    end
+
+    def on_connect user
+      R.keys(USER_MESSAGES % '*').each do |k|
+        if R.llen(k) > 0
+          User(k.sub('user_messages:', '')).monitor
         end
+      end
+    end
+
+    def on_online m, user
+      if key = check_messages(user)
+        while msg = (JSON.parse(R.lpop(key)) rescue nil)
+          Channel(msg['channel']).send "#{user}: #{msg['from']} left you a message at #{msg['at']} -"
+          Channel(msg['channel']).send "#{user}: #{msg['message']}"
+        end
+      else
+        User(user).unmonitor
       end
     end
 
