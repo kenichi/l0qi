@@ -3,6 +3,8 @@ module L0qi
     class Giver
       include Cinch::Plugin
 
+      PHP = 'php'
+
       DEFAULT_ALIAS = ->(nick){ /#{nick}_+/ }
 
       def initialize *a
@@ -30,8 +32,8 @@ module L0qi
       end
 
       def give m, key, mod
-        if m.upcase == 'PHP'
-          m.reply "no"
+        if key.downcase == PHP
+          m.reply "nope."
         else
           by = case mod
                when '++'; 1
