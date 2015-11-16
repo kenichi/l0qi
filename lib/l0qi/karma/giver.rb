@@ -30,12 +30,16 @@ module L0qi
       end
 
       def give m, key, mod
-        by = case mod
-             when '++'; 1
-             when '--'; -1
-             end
-        k = R.hincrby HKEY, key, by
-        m.reply REPLY % [key, k]
+        if m.upcase == 'PHP'
+          m.reply "no"
+        else
+          by = case mod
+               when '++'; 1
+               when '--'; -1
+               end
+          k = R.hincrby HKEY, key, by
+          m.reply REPLY % [key, k]
+        end
       end
 
       def each m, key, mod
